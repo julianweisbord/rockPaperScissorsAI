@@ -1,0 +1,3 @@
+import tool
+
+#class RPSGame:
