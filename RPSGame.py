@@ -1,3 +1,4 @@
-import tool
+import tool, random
 
-#class RPSGame:
+class RPSGame:
+	def random(self):
