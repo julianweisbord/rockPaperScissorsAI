@@ -2,7 +2,7 @@ import random, sys
 from tool import Tool, Rock, Paper, Scissors
 
 class RPSGame():
-	player_answer = []
+	player_array = []
 	def __init__(self):
 		self.computer_wins = 0
 		self.ties = 0
@@ -76,22 +76,22 @@ class RPSGame():
 			scissorsy.set_type('s')
 			print "created a new scissors object", scissorsy
 			return scissorsy
-	def data(self):
+
+	def data(self,populate):
 		print "Human Wins: ", self.human_wins
 		print "Computer Wins: ", self.computer_wins
 		print "Ties: ", self.ties
+		self.player_array.append(populate)
+		print "Here are your past moves: ", self.player_array
+
+
 
 	def bring_together(self):
 		playerChoice = self.player_choice()
 		computerChoice = self.comp_answer()
 		player = self.altChoices(playerChoice)
 		print ("This is player: ", player.get_type())
-		#if (player == rocky):
-		#	player.set_type('r')
-		#if (player == papery):
-		#	player.set_type('p')
-		#if (player ==scissorsy):
-		#	player.set_type('s')
+
 
 		computer = self.choices(computerChoice)
 		print ("This is computer: ", computer.get_comp_type())
@@ -99,12 +99,15 @@ class RPSGame():
 		winLoss = player.fight(computer)
 		if(winLoss ==1):
 			self.human_wins+=1
+			self.data(player.get_type())
 		elif(winLoss == 2):
 			self.computer_wins +=1
+			self.data(player.get_type())
 		elif(winLoss == 3):
 			self.ties +=1
+			self.data(player.get_type())
 		else:
 			print("comparison failed")
-		self.data()
+
 
 		#need function that takes number of wins, losses, ties and adds them based on fight function

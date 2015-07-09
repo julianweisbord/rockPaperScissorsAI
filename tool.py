@@ -1,7 +1,7 @@
 import sys
 
 class Tool(object):
-	user_array = []
+	#player_array = []
 	def __str__(self):
 		return self.type
 
@@ -25,8 +25,13 @@ class Rock(Tool):
 		super(Rock, self).__init__()
 		self.type = 'r'
 
+		#self.player_array.append('r')
+		#print "Your passed moves", self.player_array
+
+
 	def fight(self,computer):
 		#rObj = Tool()
+
 		if(computer.comp_type =='s'):
 			print ("You Win!!!")
 			return 1
@@ -43,6 +48,8 @@ class Scissors(Tool):
 	def __init__(self):
 		super(Scissors, self).__init__()
 		self.type = 's'
+		#self.player_array.append('r')
+		#print "Your passed moves", self.player_array
 
 	def fight(self, computer):
 		#sObj = Tool()
@@ -62,6 +69,8 @@ class Paper(Tool):
 	def __init__(self):
 		super(Paper, self).__init__()
 		self.type = 'p'
+		#self.player_array.append('r')
+		#print "Your passed moves", self.player_array
 
 	def fight(self, computer):
 		#pObj = Tool()
