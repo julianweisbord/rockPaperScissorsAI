@@ -1,62 +1,78 @@
 import sys
 
-class Tool:
+class Tool(object):
+	user_array = []
+	def __str__(self):
+		return self.type
+
 	def get_type(self):
-		return type
+		return self.type
 
 	def set_type(self, human_choice):
-		type = human_choice
+		self.type = human_choice
+
+	def get_comp_type(self):
+		return self.comp_type
+
+	def set_comp_type(self, comp_choice):
+		self.comp_type = comp_choice
+
+	def fight(self, computer):
+			super(Tool, self).__init__()
 
 class Rock(Tool):
 	def __init__(self):
-		type = 'r'
+		super(Rock, self).__init__()
+		self.type = 'r'
 
-	def fight(self):
-		rObj = Tool()
-		if(rObj.get_type =='s'):
+	def fight(self,computer):
+		#rObj = Tool()
+		if(computer.comp_type =='s'):
 			print ("You Win!!!")
 			return 1
-		elif(rObj.get_type =='p'):
+		elif(computer.comp_type =='p'):
 			print("You Lost")
 			return 2
-		elif(rObj.get_type =='r'):
+		elif(computer.comp_type =='r'):
 			print("You Tied")
 			return 3
 		else:
-			return 0		
-	
+			return 0
+
 class Scissors(Tool):
 	def __init__(self):
-		type = 's'
+		super(Scissors, self).__init__()
+		self.type = 's'
 
-	def fight(self):
-		sObj = Tool()
-		if(sObj.get_type =='p'):
+	def fight(self, computer):
+		#sObj = Tool()
+		if(computer.comp_type =='p'):
 			print ("You Win!!!\n")
 			return 1
-		elif(sObj.get_type =='r'):
+		elif(computer.comp_type =='r'):
 			print("You Lost\n")
 			return 2
-		elif(sObj.get_type =='s'):
+		elif(computer.comp_type =='s'):
 			print("You Tied\n")
 			return 3
 		else:
-			return 0		
-	
+			return 0
+
 class Paper(Tool):
 	def __init__(self):
-		type = 'p'
+		super(Paper, self).__init__()
+		self.type = 'p'
 
-	def fight(self):
-		pObj = Tool()
-		if(sObj.get_type =='r'):
+	def fight(self, computer):
+		#pObj = Tool()
+		if(computer.comp_type =='r'):
 			print ("You Win!!!\n")
 			return 1
-		elif(sObj.get_type =='s'):
+		elif(computer.comp_type =='s'):
 			print("You Lost\n")
 			return 2
-		elif(sObj.get_type =='p'):
+		elif(computer.comp_type =='p'):
 			print("You Tied\n")
 			return 3
 		else:
-			return 0		
+			return 0
