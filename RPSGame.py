@@ -11,9 +11,41 @@ class AI():
 		return rand
 
 	def algorithm(self):
-		whatever = self.percent_algorithm()
+		favorite = self.percent_algorithm()
+		if (favorite == False):
+			print "favorite was false try different algorithm"
+		elif (favorite == 'r'):
+			print "They tend to favor rock"
+		elif (favorite == 'p'):
+			print "They tend to favor paper"
+		elif (favorite == 's'):
+			print "They tend to favor scissors"
+
 		suggestion = True
 		return suggestion
+
+	def match_algorithm(self):
+		print "AI IS PRINTING ARRAY", game.get_array()
+		counter = 1
+		valCounter = 0
+		value = game.get_array()[-counter]
+		for length in game.get_array():
+			for length in game.get_array():
+				if(game.get_array(-counter) !=value):
+					break
+				if(value == 'r' or value == 'p' or value =='s'):
+
+					for length in game.get_array():
+						if (game.get_array()[counter + valCounter-1] == value):
+							valCounter +=1
+							print "This is val counter: ",valCounter
+
+						else:
+							break
+				else:
+					print "ERROR, nothing in the array eqauls r, p, or s"
+				counter +=1
+
 
 	def percent_algorithm(self):
 		game = RPSGame()
@@ -23,7 +55,6 @@ class AI():
 		rock_percent = 0.0
 		paper_percent = 0.0
 		scissors_percent =0.0
-		print "AI IS PRINTING ARRAY", game.get_array()
 
 		counter = 0
 		for length in game.get_array():
@@ -47,20 +78,30 @@ class AI():
 		if(scissors_counter != 0.0):
 			scissors_percent =  (100* total_counter)
 			print "Scissors Percent: ", scissors_percent
-		######################PICk Up Where We Left Off #################################### ########################################################################################################################################################################
+
 		if(total_counter >=8):
 			if((rock_percent-10.0>=paper_percent) & (rock_percent-10.0>= scissors_percent)):
-				rock_time = True
+				rock_time = 'r'
 				print "ITS ROCK TIME! "
-			else:
-				rock_time = false
-		percent_suggestion = True
+				return rock_time
+			elif((paper_percent-10.0>=rock_percent) & (paper_percent-10.0>= scissors_percent)):
+				paper_time = 'p'
+				print "ITS PAPER TIME! "
+				return paper_time
+			elif((scissors_percent-10.0>=paper_percent) & (scissors_percent-10.0>= rock_percent)):
+				scissors_time = 's'
+				print "ITS SCISSORS TIME! "
+				return scissors_time
+
+		percent_suggestion = False
 		return percent_suggestion
 
 
 	def ai_choice(self):
+
 		algorithmDesicion = False
 		return algorithmDesicion
+		#or returns r, p, or s
 
 	def comp_answer(self):
 		no_ai = self.algorithm()
@@ -115,17 +156,17 @@ class RPSGame():
 		if(theInput== 'r'):
 			rocky = Rock()
 			rocky.set_comp_type('r')
-			print "created a new rock object ", rocky
+			#print "created a new rock object ", rocky
 			return rocky
 		if(theInput== 'p'):
 			papery = Paper()
 			papery.set_comp_type('p')
-			print "created a new paper object", papery
+			#print "created a new paper object", papery
 			return papery
 		if(theInput== 's'):
 			scissorsy = Scissors()
 			scissorsy.set_comp_type('s')
-			print "created a new scissors object", scissorsy
+			#print "created a new scissors object", scissorsy
 			return scissorsy
 
 	def altChoices(self, theInput):
