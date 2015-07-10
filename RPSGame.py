@@ -2,6 +2,7 @@ import random, sys
 from tool import Tool, Rock, Paper, Scissors
 
 class AI():
+
 	def __init__(self):
 		#self.game = RPSGame()
 		print "I am the robot, I am all powerfull."
@@ -11,6 +12,8 @@ class AI():
 		return rand
 
 	def algorithm(self):
+		self.game = RPSGame()
+		match = self.match_algorithm()
 		favorite = self.percent_algorithm()
 		if (favorite == False):
 			print "favorite was false try different algorithm"
@@ -21,34 +24,46 @@ class AI():
 		elif (favorite == 's'):
 			print "They tend to favor scissors"
 
+		if(match>=3):
+			print "we will play the opposite of what they threw"
+
 		suggestion = True
 		return suggestion
 
 	def match_algorithm(self):
-		print "AI IS PRINTING ARRAY", game.get_array()
+		print "AI IS PRINTING ARRAY", self.game.get_array()
 		counter = 1
 		valCounter = 0
-		value = game.get_array()[-counter]
-		for length in game.get_array():
-			for length in game.get_array():
-				if(game.get_array(-counter) !=value):
-					break
-				if(value == 'r' or value == 'p' or value =='s'):
 
-					for length in game.get_array():
-						if (game.get_array()[counter + valCounter-1] == value):
-							valCounter +=1
-							print "This is val counter: ",valCounter
+		if(len(self.game.get_array()) >2):
+			value = self.game.get_array()[-counter]
+			if(self.game.get_array()[-counter-1] == value):
+				#for length in self.game.get_array():
+				#for length in self.game.get_array():
+				if(self.game.get_array(-counter) !=value):
+					return valCounter
+					if(value == 'r' or value == 'p' or value =='s'):
+						for length in self.game.get_array():
+							if (self.game.get_array()[-counter] == value):
+								valCounter +=1
+								counter +=1
+								print "This is val counter: ",valCounter, "this is counter", counter
 
-						else:
-							break
-				else:
-					print "ERROR, nothing in the array eqauls r, p, or s"
-				counter +=1
+							else:
+								return valCounter
+								#break
+					else:
+						print "ERROR, nothing in the array eqauls r, p, or s"
+						valCounter =0
+						return valCounter
 
+			else:
+				#valCounter will equal the size of the pattern
+				valCounter = 0
+			return valCounter
 
 	def percent_algorithm(self):
-		game = RPSGame()
+
 		rock_counter = 0.0
 		paper_counter = 0.0
 		scissors_counter = 0.0
@@ -57,14 +72,14 @@ class AI():
 		scissors_percent =0.0
 
 		counter = 0
-		for length in game.get_array():
+		for length in self.game.get_array():
 
 			print "list length is: ", (counter+1)
-			if(game.get_array()[counter]=='r'):
+			if(self.game.get_array()[counter]=='r'):
 				rock_counter +=1
-			elif(game.get_array()[counter]=='p'):
+			elif(self.game.get_array()[counter]=='p'):
 				paper_counter +=1
-			elif(game.get_array()[counter]=='s'):
+			elif(self.game.get_array()[counter]=='s'):
 				scissors_counter +=1
 			counter +=1
 
@@ -173,17 +188,17 @@ class RPSGame():
 		if(theInput== 'r'):
 			rocky = Rock()
 			rocky.set_type('r')
-			print "created a new rock object ", rocky
+			#print "created a new rock object ", rocky
 			return rocky
 		if(theInput== 'p'):
 			papery = Paper()
 			papery.set_type('p')
-			print "created a new paper object", papery
+			#print "created a new paper object", papery
 			return papery
 		if(theInput== 's'):
 			scissorsy = Scissors()
 			scissorsy.set_type('s')
-			print "created a new scissors object", scissorsy
+			#print "created a new scissors object", scissorsy
 			return scissorsy
 
 	def data(self,populate):
