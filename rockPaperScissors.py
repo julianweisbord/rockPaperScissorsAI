@@ -1,6 +1,7 @@
 import sys
 from tool import Tool, Rock, Paper, Scissors
-from RPSGame import RPSGame, AI
+from rpsgame import RPSGame
+from machine import AI
 
 def main():
 	answer = 'y'
