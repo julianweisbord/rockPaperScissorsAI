@@ -31,9 +31,9 @@ class AI():
         #game = RPSGame()
         match = self.match_algorithm()
         favorite = self.percent_algorithm()
-
+        #need to add if match is greater than 3 and also equal to the size of the biggest list.
         if(match>=3):
-            print "we will play the opposite of what they threw!!!!!!!!!!!"
+            print "we will play the opposite of what they threw!!!!!!!!!!!!!!!!"
             if(self.get_next_value() == 'r'):
                 print "We will throw paper "
                 return 'p'
@@ -60,43 +60,74 @@ class AI():
                 return 'r'
         suggestion = False
         return suggestion
-
+#list isn't appending the first value.
     def match_algorithm(self):
         print "AI IS PRINTING ARRAY", self.get_array()
         counter = 1
         valCounter = 0
+        patternNum = 0
+        big_sublist = []
+        pattern_list = []
+        final_list = [[]]
 
         if(len(self.get_array()) >6):
             value = self.get_array()[-counter]
+            #doesn't matter valCounter = 1
+            print "in match_algorithm first if"
             if(self.get_array()[-counter-1] == value):
+                print "in match_algorithm second if"
                 #for length in self.game.get_array():
                 #for length in self.game.get_array():
-                if(self.get_array()[-counter] !=value):
-                    return valCounter
-                    if(value == 'r' or value == 'p' or value =='s'):
-                        for length in self.get_array():
-                            if (self.get_array()[-counter] == value):
-                                valCounter +=1
-                                counter +=1
-                                print "This is val counter: ",valCounter, "this is counter", counter
-
+            # elif(self.get_array()[-counter-1] !=value):
+            #     print "in match_algorithm first elif, will return valCounter"
+            #     return valCounter
+                if(value == 'r' or value == 'p' or value =='s'):
+                    print "value == 'r' or value == 'p' or value =='s' "
+                    for length in self.get_array():
+                        if (self.get_array()[-counter] == value):
+                            pattern_list.append(value)
+                            print "pattern_list: ", pattern_list
+                            valCounter +=1
+                            counter +=1
+                            print "This is val counter: ",valCounter, "this is counter", counter
+                        elif(self.get_array()[-counter] !=value):
+                            print "encountered a different value"
+                            pattern_list.append(self.get_array()[-counter])
+                            final_list.append(pattern_list[:])
+                            print "final_list", final_list
+                        #else
+                            #patternNum.append(with the sublist that has the greatest length in final_list)
+                            #case for if user doesn't have a next value in the array after their pattern.
+                            if(self.get_array()[-counter +1] == None):
+                                valcounter = 0
+                                return valcounter
                             else:
-                                if(self.get_array()[-counter +1] == None):
-                                    valcounter = 0
-                                    return valcounter
-                                else:
-                                    self.set_next_value(self.get_array()[-counter +1])
-                                    print get_next_value()
-                                    return valCounter
-                                    #break
-                    else:
-                        print "ERROR, nothing in the array eqauls r, p, or s"
-                        valCounter =0
-                        return valCounter
+                                i = 0
+                                final_list.pop(0)
+                                print "final_list: ", final_list
+                                for sublist in final_list:
+                                    big_sublist = final_list[0]
+                                    print "final_list[0]", final_list[0]
+                                    if len(final_list[i]) > big_sublist:
+                                        big_sublist = final_list[i]
+                                        patternNum = len(big_sublist)
+                                    i+=1
+
+                                print "big sublist: ", big_sublist
+                                print "patternNum: ", patternNum
+                                self.set_next_value(big_sublist[patternNum-1])
+                                print "This is get next value/final valCounter: ", self.get_next_value()
+                                return valCounter
+                                #break
+                else:
+                    print "ERROR, nothing in the array eqauls r, p, or s"
+                    valCounter =0
+                    return valCounter
 
             else:
                 #valCounter will equal the size of the pattern
                 valCounter = 0
+            print "FINAL valCounter: ", valCounter
             return valCounter
 
     def percent_algorithm(self):
@@ -154,10 +185,10 @@ class AI():
 
 
 
-    def ai_choice(self):
+    #def ai_choice(self):
 
-        algorithmDesicion = False
-        return algorithmDesicion
+    #    algorithmDesicion = False
+    #    return algorithmDesicion
         #or returns r, p, or s
 
 
