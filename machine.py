@@ -67,7 +67,7 @@ class AI():
         pattern = [[]]
         in_between_counter = 0
         in_between = []
-        pattern_repeat_counter = 0
+        pattern_repeat_counter = 1
         pattern_repeat= [[]]
 
 #there could definately be more than one pattern.
@@ -79,6 +79,7 @@ class AI():
                 break
 
             elif(self.get_array()[length_pattern +1] ==self.get_array()[item]):
+                #why do i do this?
                 if(self.get_array()[length_pattern] != item):
                     break
                 pattern.append(item)
