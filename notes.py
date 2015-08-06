@@ -1,3 +1,5 @@
 [r,r,r,p,p,s,s,r,p,r,r,r,p,p,r,p,s,s,s,s,p,p,r,s,s,s,s]
 
 for the array if an element at i is repeated atleast 3 times at the end of the array, store that in an array called init_pattern. this array will be aslong as the decesion repeates (ie: r,r,r,r,p, array will be [r,r,r,r]). If this array is repeated anywhere in the full array, store each of these arrays in a 2d array. The less recent will be prefered. Then capture everything in between them into an array we will call Data which will be used against the player. We will proceed to use the opposite values in Data (if they chose r, we choose p) untill Data is wrong twice in which case the loop is broken. Will need to make sure that the ai doesn't check for a pattern each round while we were planning to use moves from the Data array.
+
+if the length from the end of the array of monovalues is the same length as the same thing in the array then we will look at values in between both patterns. Make sure that length_counter stops checking values before prev_counters position where there is a different value.
