@@ -6,18 +6,11 @@ class AI():
     def __init__(self):
         print "I am the robot, I am all powerfull."
         self.next_value = 0
-
     player_array = []
-    between_pattern = []
     def set_next_value(self, val):
         self.next_value = val
     def get_next_value(self):
         return self.next_value
-
-    def set_between_pattern(self, pattern):
-        self.between_pattern = pattern
-    def get_between_pattern(self):
-        return self.between_pattern
 
     def set_array(self,my_list):
         self.player_array = my_list
@@ -33,18 +26,13 @@ class AI():
         self.player_array.append(populate)
         print "Here are your past moves: ", self.player_array
 
+
     def algorithm(self):
+        #game = RPSGame()
         match = self.match_algorithm()
         favorite = self.percent_algorithm()
-        print "match : ", match, " len(self.get_array()) ", len(self.get_array())
-        print "length of in between array before decision", len(self.get_between_pattern())
-        #took out match > 3 because it was redundent
-        if len(self.get_between_pattern())>0 and len(self.get_array()) >=7:
-            patterns = self.get_between_pattern()
-            print "PATTERNS ARRAY: ", patterns
-            self.set_next_value(patterns[0])
-            # dont want them to use first in between everytime
-            # self.set_between_pattern(patterns[1:])
+        #need to add if match is greater than 3 and also equal to the size of the biggest list.
+        if(match>=3 & len(self.get_array()) >6):
             print "we will play the opposite of what they threw!!!!!!!!!!!!!!!!"
             if(self.get_next_value() == 'r'):
                 print "We will throw paper "
@@ -56,7 +44,7 @@ class AI():
                 print "We will throw rock "
                 return 'r'
             # return opposite of what they threw after pattern
-#COMPUTER NEEDS TO BE TRICKIER ABOUT THROWING THE FAVORITE
+
         if (favorite == False):
             print "favorite was false maybe we will try a different algorithm"
         elif (favorite !=False):
@@ -72,73 +60,76 @@ class AI():
                 return 'r'
         suggestion = False
         return suggestion
-
-#only return length_counter if beginning and ending arrays are equal
+#list isn't appending the first value.
     def match_algorithm(self):
         print "AI IS PRINTING ARRAY", self.get_array()
-        length_counter = 0
-        prev_counter = 1
-        stop_index = 0
-        index = 0
-        index_counter = 0
-        prev_pattern = []
-        pattern = []
-        in_between_counter = 0
-        in_between = []
-        # pattern_repeat_counter = 1
-        # pattern_repeat= [[]]
+        counter = 1
+        valCounter = 0
+        patternNum = 0
+        saw_dif_value = 0
+        big_sublist = []
+        pattern_list = []
+        final_list = [[]]
 
-#there could definately be more than one pattern.
-        for item in self.get_array():
-            print "In match algoritm length of between: ", len(self.get_between_pattern())
-            if len(self.get_between_pattern()) >=1:
-                print "len(self.get_between_pattern()) ", len(self.get_between_pattern())
-                print "breaking"
-                break
 
-            # if(self.get_array()[length_counter +1] == None):
-            # # & length_counter <3):
-            #     break
-            if(len(self.get_array()) >=3):
-                if(self.get_array()[-prev_counter] ==self.get_array()[len(self.get_array())-1]):
-                    if(self.get_array()[length_counter] == self.get_array()[-prev_counter]):
-                        pattern.append(item)
-                        print "prev counter: ",prev_counter
-                        prev_pattern.append(self.get_array()[-prev_counter])
-                        length_counter+=1
-                        prev_counter+=1
-                        print "prev_counter, length_counter: ", prev_counter, ", ", length_counter
-                #if value is not equal to last item in array
-                elif(self.get_array()[-prev_counter] != self.get_array()[len(self.get_array())-1]):
-                    stop_index = len(self.get_array()) - prev_counter +1
+        value = self.get_array()[-counter]
+        #doesn't matter valCounter = 1
+        print "in match_algorithm first if"
+        if(self.get_array()[-counter-1] == value):
+            print "in match_algorithm second if"
 
-                    #if arrays are equal then create an in betwen array
-                    if(pattern == prev_pattern):
-                        if(length_counter >=3):
+            if(value == 'r' or value == 'p' or value =='s'):
+                print "value == 'r' or value == 'p' or value =='s' "
+                for length in self.get_array():
+                    if (self.get_array()[-counter] == value):
+                        pattern_list.append(value)
+                        print "pattern_list: ", pattern_list
+                        valCounter +=1
+                        counter +=1
+                        print "This is val counter: ",valCounter, "this is counter", counter
+                    elif(self.get_array()[-counter] !=value):
+                        print "encountered a different value"
+                        saw_dif_value +=1
+                        if saw_dif_value == 1:
+                            pattern_list.append(self.get_array()[-counter])
+                            print "Last pattern list", pattern_list
+                            final_list.append(pattern_list[:])
+                            print "final_list", final_list
+                    #else
+                        #patternNum.append(with the sublist that has the greatest length in final_list)
+                        #case for if user doesn't have a next value in the array after their pattern.
+                            if(self.get_array()[-counter +1] == None):
+                                valcounter = 0
+                                return valcounter
+                            else:
+                                i = 0
+                                final_list.pop(0)
+                                print "final_list: ", final_list
+                                for sublist in final_list:
+                                    big_sublist = final_list[0]
+                                    print "final_list[0]", final_list[0]
+                                    if len(final_list[i]) > big_sublist:
+                                        big_sublist = final_list[i]
+                                        patternNum = len(big_sublist)
+                                    i+=1
 
-                            #problem with in_between only works in some scenarios
-                            print "length_counter, ", "stop_index ", length_counter, " ", stop_index
-                            for x in xrange(length_counter, stop_index):
-                                in_between.append(self.get_array()[x])
-                            print "in_between array: ", in_between
-                            self.set_between_pattern(in_between)
-                            #delete first value of in_between corresponding to private array so that the same value doesn't keep getting put into set_next_val.
+                                print "big sublist: ", big_sublist
+                                print "patternNum: ", patternNum
+                                if patternNum == len(pattern_list):
+                                    self.set_next_value(big_sublist[patternNum-1])
+                                    print "This is get next value/final valCounter: ", self.get_next_value()
+                                    return valCounter
+                                #break
+            else:
+                print "ERROR, nothing in the array eqauls r, p, or s"
+                valCounter =0
+                return valCounter
 
-                            # score =self.get_array()
-                            # self.set_array(score.pop(length_counter))
-
-                            return length_counter
-                #might never go in here fix something
-                    if(self.get_array()[-prev_counter] !=self.get_array()[length_counter]):
-                        #pattern needs to restart if the values aren't equal
-                        while len(pattern) > 0:
-                            print "DELETING ARRAY pattern"
-                            pattern.pop(0)
-                        print "pattern should be empty: ", pattern
-
-            index+=1
-            if(index == stop_index):
-                break
+        else:
+            #valCounter will equal the size of the pattern
+            valCounter = 0
+        print "FINAL valCounter: ", valCounter
+        return valCounter
 
     def percent_algorithm(self):
 
